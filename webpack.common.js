@@ -18,7 +18,21 @@ module.exports = {
             // Load CSS
             {
                 test: /\.css$/i,
-                use: ['style-loader', 'css-loader'],
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            postcssOptions: {
+                                plugins: [
+                                    'tailwindcss',
+                                    'autoprefixer',
+                                ],
+                            },
+                        },
+                    }
+                ],
             },
             // Load Images
             {
