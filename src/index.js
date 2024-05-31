@@ -1,21 +1,44 @@
+import { createProject, createProjectManager } from './modules/app/projects.js';
+import { createTodo } from './modules/app/todos.js';
+import * as domUtils from './modules/domUtils.js';
 import './style.css';
-import { setupProjectModal, renderProjectList } from './modules/projects.js';
 
 function domLoaded() {
-    /* Setup projects */
+    // Setup projects
+    var projectManager = createProjectManager();
 
-    setupProjectModal();
-    renderProjectList();
+    // Add default project
+    var defaultProject = createProject({ title: 'Default Project' });
+    projectManager.addProject(defaultProject);
+    projectManager.setActiveProject(defaultProject.id);
 
-    // Dismiss modal
-    document.querySelectorAll('[data-dismiss="modal"]').forEach(el => {
-        el.addEventListener('click', () => {
-            var openModal = document.querySelector('.modal[open]');
-            if (openModal) {
-                openModal.close();
-            }
-        });
-    });
+    // Add many projects
+    projectManager.addManyProjects([
+        createProject({ title: 'Project 1' }),
+        createProject({ title: 'Project 2' }),
+        createProject({ title: 'Project 3' }),
+    ]);
+
+    // Add many todos
+    defaultProject.addManyTodos([
+        createTodo({ title: 'Todo 1', dueDate: new Date('2022-01-01') }),
+        createTodo({ title: 'Todo 2', dueDate: new Date(), priority: 'low' }),
+        createTodo({ title: 'Todo 2', dueDate: new Date('2024-06-02'), priority: 'low' }),
+        createTodo({ title: 'Todo 2', dueDate: new Date('2024-06-05'), priority: 'medium' }),
+        createTodo({ title: 'Todo 2', dueDate: new Date('2024-12-05'), priority: 'medium' }),
+        createTodo({ title: 'Todo 4', dueDate: new Date('2028-01-01'), priority: 'high' }),
+    ]);
+
+    // Setup modals
+    domUtils.setupAddProjectModal(projectManager);
+    domUtils.setupAddTodoModal(projectManager);
+    domUtils.setupDismissModal();
+
+    // Render project list
+    domUtils.renderProjectList(projectManager);
+
+    // Render content
+    domUtils.renderContent(projectManager);
 }
 
 document.addEventListener('DOMContentLoaded', domLoaded);

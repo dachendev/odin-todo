@@ -47,7 +47,7 @@ body {
 }
 
 .h3 {
-    font-size: 1rem;
+    font-size: 0.875rem;
     font-weight: 600;
 }
 
@@ -89,9 +89,6 @@ body {
     --btn-font-size: 1rem;
     --btn-color: #000;
     --btn-bg: transparent;
-    --btn-hover-border-color: var(--btn-border-color);
-    --btn-hover-color: var(--btn-color);
-    --btn-hover-bg: var(--btn-bg);
 
     /* Default Styles */
     display: inline-block;
@@ -104,10 +101,9 @@ body {
     cursor: pointer;
 }
 
-.btn:hover {
-    border-color: var(--btn-hover-border-color);
-    color: var(--btn-hover-color);
-    background-color: var(--btn-hover-bg);
+.btn-block {
+    display: block;
+    width: 100%;
 }
 
 .btn-sm {
@@ -120,23 +116,17 @@ body {
     --btn-border-color: #EA824B;
     --btn-color: #F5F5F5;
     --btn-bg: #EA824B;
-    --btn-hover-border-color: #D17B2C;
-    --btn-hover-bg: #D17B2C;
 }
 
 .btn-secondary {
     --btn-border-color: #A1A9BB;
     --btn-color: #F5F5F5;
     --btn-bg: #A1A9BB;
-    --btn-hover-border-color: #8C919F;
-    --btn-hover-bg: #8C919F;
 }
 
-.btn-light {
+.btn-outline-light {
     --btn-border-color: #ccc;
     --btn-color: #333;
-    --btn-bg: #F5F5F5;
-    --btn-hover-bg: #e0e0e0;
 }
 
 /* Modals */
@@ -219,29 +209,88 @@ body {
 /* Projects */
 
 .project-item {
-    /* Variables */
-    --project-item-border-color: transparent;
-    --project-item-color: var(--sidebar-color);
-    --project-item-bg: var(--sidebar-bg);
-
-    /* Default Styles */
-    border: 1px solid var(--project-item-border-color);
+    border: 1px solid transparent;
     border-radius: 0.25rem;
     padding: 0.25rem 0.5rem;
-    margin-bottom: 0.125rem;
+    margin-bottom: 0.25rem;
     font-size: 0.875rem;
-    color: var(--project-item-color);
-    background-color: var(--project-item-bg);
+    font-weight: 600;
+    color: var(--sidebar-color);
+    background-color: var(--sidebar-bg);
     cursor: pointer;
 }
 
 .project-item.active {
-    --project-item-border-color: #EA824B;
-    --project-item-color: #F5F5F5;
-    --project-item-bg: #EA824B;
+    border-color: #EA824B;
+    color: #F5F5F5;
+    background-color: #EA824B;
 }
 
 .project-item:not(.active):hover {
-    --project-item-border-color: #ccc;
-    --project-item-bg: #F5F5F5;
+    border-color: #ccc;
 }
+
+/* Todos */
+
+.todo-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    margin-bottom: 0.25rem;
+    padding: 0.375rem 0.75rem;
+    color: var(--body-color);
+    cursor: pointer;
+}
+
+.todo-item:hover {
+    border-color: #ccc;
+}
+
+.todo-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.todo-item.completed .todo-title {
+    text-decoration: line-through;
+    color: #ccc;
+}
+
+.todo-details {
+    margin-left: auto;
+}
+
+.todo-due-date {
+    border-radius: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #333;
+    background-color: #eee;
+}
+
+/* .todo-due-date.due-today {}
+
+.todo-due-date.due-overdue {}
+
+.todo-due-date.due-soon {} */
+
+.todo-priority {
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    color: #333;
+    background-color: transparent;
+}
+
+/* .todo-priority.priority-1 {}
+
+.todo-priority.priority-2 {}
+
+.todo-priority.priority-3 {}
+
+.todo-priority.priority-4 {} */
