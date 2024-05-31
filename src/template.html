@@ -43,24 +43,26 @@
                     <input type="text" name="title" class="form-control">
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label">Description</label>
-                    <textarea name="description" class="form-control"></textarea>
+                <div class="columns-2">
+                    <div class="form-group">
+                        <label class="form-label">Priority</label>
+                        <select name="priority" class="form-control" style="height: 38px;">
+                            <option value="unset" selected>None (unset)</option>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Due Date</label>
+                        <input type="date" name="dueDate" class="form-control" style="height: 38px;">
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Due Date</label>
-                    <input type="date" name="dueDate" class="form-control">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Priority</label>
-                    <select name="priority" class="form-control">
-                        <option value="unset" selected>None (unset)</option>
-                        <option value="low">Low</option>
-                        <option value="medium">Medium</option>
-                        <option value="high">High</option>
-                    </select>
+                    <label class="form-label">Notes</label>
+                    <textarea name="notes" class="form-control"></textarea>
                 </div>
 
                 <div class="form-group">
@@ -79,6 +81,7 @@
     <!-- Main Content -->
     <div class="grid-container">
         <div class="sidebar">
+            <h3 class="h3 mb-2">Projects</h3>
             <ul id="project-list"></ul>
             <button id="add-project-button" type="button" class="btn btn-block btn-sm btn-outline-light">Add Project</button>
         </div>

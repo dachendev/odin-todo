@@ -1,12 +1,17 @@
 /**
  * Color Palette
  * See http://colormind.io/bootstrap/
- * -----------------------------------------------------------------------------
- * #F5F5F5 - white, for text and backgrounds
- * #A1A9BB - light gray
- * #EA824B - orange, primary color
- * #C27081 - pink, dark accent color, rarely used
- * #21669B - blue, for display text and backgrounds
+ * 1. #F5F5F5 - white, for text and backgrounds
+ * 2. #A1A9BB - light gray
+ * 3. #EA824B - orange, primary color
+ * 4. #C27081 - pink, dark accent color, rarely used
+ * 5. #21669B - blue, for display text and backgrounds
+ -------------------------------------------------------------------------------
+ * Semantic Colors
+ * See https://www.color-hex.com/color-palette/1015829
+ * 1. #db2828 - Red, for errors
+ * 2. #fbbd08 - Yellow, for warnings
+ * 3. #21ba45 - Green, for success
  */
 /* Tailwind CSS */
 
@@ -68,14 +73,14 @@ body {
 
     /* Default Styles */
     grid-area: sidebar;
-    padding: 1rem;
+    padding: 2rem 1.5rem;
     color: var(--sidebar-color);
     background-color: var(--sidebar-bg);
 }
 
 .main-content {
     grid-area: main-content;
-    padding: 1rem;
+    padding: 2rem 1.5rem;
     background-color: #fff;
 }
 
@@ -89,6 +94,9 @@ body {
     --btn-font-size: 1rem;
     --btn-color: #000;
     --btn-bg: transparent;
+    --btn-hover-border-color: var(--btn-border-color);
+    --btn-hover-color: var(--btn-color);
+    --btn-hover-bg: var(--btn-bg);
 
     /* Default Styles */
     display: inline-block;
@@ -99,6 +107,12 @@ body {
     color: var(--btn-color);
     background-color: var(--btn-bg);
     cursor: pointer;
+}
+
+.btn:hover {
+    border-color: var(--btn-hover-border-color);
+    color: var(--btn-hover-color);
+    background-color: var(--btn-hover-bg);
 }
 
 .btn-block {
@@ -127,13 +141,14 @@ body {
 .btn-outline-light {
     --btn-border-color: #ccc;
     --btn-color: #333;
+    --btn-bg: transparent;
 }
 
 /* Modals */
 
 .modal {
     /* Variables */
-    --modal-max-width: 400px;
+    --modal-max-width: 500px;
 
     /* Default Styles */
     width: auto;
@@ -214,7 +229,6 @@ body {
     padding: 0.25rem 0.5rem;
     margin-bottom: 0.25rem;
     font-size: 0.875rem;
-    font-weight: 600;
     color: var(--sidebar-color);
     background-color: var(--sidebar-bg);
     cursor: pointer;
@@ -228,6 +242,7 @@ body {
 
 .project-item:not(.active):hover {
     border-color: #ccc;
+    background-color: #eee;
 }
 
 /* Todos */
@@ -253,9 +268,12 @@ body {
     font-weight: 600;
 }
 
+.todo-item.completed {
+    opacity: 0.5;
+}
+
 .todo-item.completed .todo-title {
     text-decoration: line-through;
-    color: #ccc;
 }
 
 .todo-details {
@@ -272,25 +290,29 @@ body {
     background-color: #eee;
 }
 
-/* .todo-due-date.due-today {}
+/* .todo-due-date.due-today {} */
 
-.todo-due-date.due-overdue {}
+/* .todo-due-date.due-overdue {}
 
 .todo-due-date.due-soon {} */
 
 .todo-priority {
-    border: 1px solid #ccc;
-    border-radius: 0.25rem;
-    padding: 0.25rem 0.5rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    border: 1px solid transparent;
+    border-radius: 50%;
     font-size: 0.75rem;
-    color: #333;
-    background-color: transparent;
+    line-height: 1;
 }
 
-/* .todo-priority.priority-1 {}
+.todo-priority.priority-low {
+    background-color: #21ba45;
+}
 
-.todo-priority.priority-2 {}
+.todo-priority.priority-medium {
+    background-color: #fbbd08;
+}
 
-.todo-priority.priority-3 {}
-
-.todo-priority.priority-4 {} */
+.todo-priority.priority-high {
+    background-color: #db2828;
+}

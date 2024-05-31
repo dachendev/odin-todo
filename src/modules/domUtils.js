@@ -63,16 +63,16 @@ export function setupAddTodoModal(projectManager) {
 
         // Create & add todo
         var title = formData.get('title');
-        var description = formData.get('description');
-        var dueDate = formData.get('dueDate');
         var priority = formData.get('priority');
+        var dueDate = formData.get('dueDate');
+        var notes = formData.get('notes');
         var project = formData.get('project'); // Project ID
-
+ 
         if (priority === 'unset') {
             priority = null;
         }
         
-        var todo = createTodo({ title, description, dueDate, priority, project });
+        var todo = createTodo({ title, priority, dueDate, notes, project });
         projectManager.getProjectById(project).addTodo(todo);
 
         // Re-render content if project is active
@@ -204,6 +204,14 @@ export function createTodoItem(todo) {
     checkbox.checked = todo.completed;
     li.appendChild(checkbox);
 
+    // Priority
+    if (todo.priority) {
+        var priority = document.createElement('span');
+        priority.classList.add('todo-priority');
+        priority.classList.add(`priority-${todo.priority}`);
+        li.appendChild(priority);
+    }
+
     // Due Date
     if (todo.dueDate) {
         var dueDate = document.createElement('span');
@@ -239,24 +247,6 @@ export function createTodoItem(todo) {
     title.classList.add('todo-title');
     title.textContent = todo.title;
     li.appendChild(title);
-
-    // Details
-    var details = document.createElement('div');
-    details.classList.add('todo-details');
-    li.appendChild(details);
-
-    // Priority
-    if (todo.priority) {
-        var priority = document.createElement('span');
-        priority.classList.add('todo-priority');
-        priority.classList.add(`priority-${todo.priority}`);
-
-        // Set priority text
-        priority.textContent = todo.priority;
-
-        details.appendChild(priority);
-    }
-
 
     /* END Add content */
     

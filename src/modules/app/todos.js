@@ -2,11 +2,11 @@ import { nanoid } from 'nanoid';
 
 export function createTodo({
     id = nanoid(6),
-    title = 'New Todo',
-    description = '',
-    dueDate = null,
-    priority = null,
     completed = false,
+    title = 'New Todo',
+    priority = null,
+    dueDate = null,
+    notes = '',
     project = null,
     created = new Date(),
 }) {
@@ -24,15 +24,15 @@ export function createTodo({
 
     return {
         id,
-        title,
-        description,
-        dueDate,
-        priority,
         completed,
+        title,
+        priority,
+        dueDate,
+        notes,
         project,
         created,
         complete,
         uncomplete,
-        setProject,
+        setProject
     };
 }
