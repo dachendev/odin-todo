@@ -1,17 +1,19 @@
 import { createProject } from './app/projects.js';
 import { createTodo } from './app/todos.js';
-import { differenceInDays, compareAsc, isThisYear, format as formatDate } from 'date-fns';
+import * as dateFns from 'date-fns';
 
 /* Modals */
 
 export function setupAddProjectModal(projectManager) {
-    var addProjectButton = document.getElementById('add-project-button');
+    var addProjectButtons = document.querySelectorAll('.add-project-button');
     var addProjectModal = document.getElementById('add-project-modal');
     var addProjectForm = document.querySelector('#add-project-modal form');
 
-    addProjectButton.addEventListener('click', () => {
-        // Show modal
-        addProjectModal.showModal();
+    addProjectButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Show modal
+            addProjectModal.showModal();
+        });
     });
     
     addProjectForm.addEventListener('submit', (e) => {
@@ -71,6 +73,10 @@ export function setupAddTodoModal(projectManager) {
         if (priority === 'unset') {
             priority = null;
         }
+
+        if (dueDate) {
+            dueDate = new Date(dueDate.replace(/-/g, '/'));
+        }
         
         var todo = createTodo({ title, priority, dueDate, notes, project });
         projectManager.getProjectById(project).addTodo(todo);
@@ -110,7 +116,7 @@ export function setupEditTodoModal(projectManager) {
             editTodoForm.querySelector('[name="id"]').value = todo.id;
             editTodoForm.querySelector('[name="title"]').value = todo.title;
             editTodoForm.querySelector('[name="priority"]').value = todo.priority;
-            editTodoForm.querySelector('[name="dueDate"]').value = todo.dueDate;
+            editTodoForm.querySelector('[name="dueDate"]').valueAsDate = todo.dueDate;
             editTodoForm.querySelector('[name="notes"]').value = todo.notes;
             editTodoForm.querySelector('[name="project"]').value = todo.project;
 
@@ -142,6 +148,10 @@ export function setupEditTodoModal(projectManager) {
 
         if (priority === 'unset') {
             priority = null;
+        }
+
+        if (dueDate) {
+            dueDate = new Date(dueDate.replace(/-/g, '/'));
         }
 
         todo.title = title;
@@ -222,12 +232,17 @@ export function renderProjectSelects(projectManager) {
 /* Content */
 
 export function setActiveProject(projectManager, projectId) {
+    var project = projectManager.getProjectById(projectId);
+
     // Don't set active project if it's already active
-    if (projectId === projectManager.getActiveProjectId()) {
+    if (project.id === projectManager.getActiveProjectId()) {
         return;
     }
 
-    projectManager.setActiveProject(projectId);
+    projectManager.setActiveProject(project.id);
+
+    // Update head
+    document.title = `${project.title} - ${window.APP_NAME}`;
 
     // Update active project in project list
     var projectList = document.getElementById('project-list');
@@ -236,7 +251,7 @@ export function setActiveProject(projectManager, projectId) {
         li.classList.remove('active');
     });
 
-    projectList.querySelector(`li[data-id="${projectId}"]`).classList.add('active');
+    projectList.querySelector(`li[data-id="${project.id}"]`).classList.add('active');
 
     // Re-render content
     renderContent(projectManager);
@@ -317,21 +332,21 @@ export function createTodoItem(todo) {
         dueDate.classList.add('todo-due-date');
 
         // Determine due date color & text
-        var now = new Date();
-        var dueIn = differenceInDays(todo.dueDate, now);
+        var now = new Date().setHours(0, 0, 0, 0);
+        var dueIn = dateFns.differenceInDays(todo.dueDate, now);
 
-        if (dueIn === 0) {
+        if (dateFns.isToday(todo.dueDate)) {
             dueDate.textContent = 'Today';
-        } else if (compareAsc(todo.dueDate, now) < 0) {
+        } else if (dateFns.compareAsc(todo.dueDate, now) < 0) {
             dueDate.textContent = 'Overdue';
         } else if (dueIn === 1) {
             dueDate.textContent = 'Tomorrow';
         } else if (dueIn <= 7) {
             dueDate.textContent = `${dueIn} days`;
-        } else if (isThisYear(todo.dueDate)) {
-            dueDate.textContent = formatDate(todo.dueDate, 'MMM d');
+        } else if (dateFns.isThisYear(todo.dueDate)) {
+            dueDate.textContent = dateFns.format(todo.dueDate, 'MMM d');
         } else {
-            dueDate.textContent = formatDate(todo.dueDate, 'PP');
+            dueDate.textContent = dateFns.format(todo.dueDate, 'PP');
         }
 
         li.appendChild(dueDate);

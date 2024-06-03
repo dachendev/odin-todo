@@ -33,10 +33,10 @@
 }
 
 body {
-    --body-color: #000;
-    --body-bg: #fff;
+    --body-color: #dfdfdf;
+    --body-bg: #242424;
     color: var(--body-color);
-    background-color: var(--body-bg);
+    background-color: #000;
 }
 
 /* Typography */
@@ -68,8 +68,8 @@ body {
 
 .sidebar {
     /* Variables */
-    --sidebar-color: #000;
-    --sidebar-bg: #f0f0f0;
+    --sidebar-color: #dfdfdf;
+    --sidebar-bg: #000;
 
     /* Default Styles */
     grid-area: sidebar;
@@ -80,8 +80,24 @@ body {
 
 .main-content {
     grid-area: main-content;
+    border-radius: 0.25rem;
+    margin: 1rem;
     padding: 2rem 1.5rem;
     background-color: var(--body-bg);
+}
+
+/* Sidebar */
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.logo {
+    width: auto;
+    height: 2rem;
 }
 
 /* Buttons */
@@ -104,6 +120,7 @@ body {
     border-radius: 0.25rem;
     padding: var(--btn-padding-y) var(--btn-padding-x);
     font-size: var(--btn-font-size);
+    font-weight: 500;
     color: var(--btn-color);
     background-color: var(--btn-bg);
     cursor: pointer;
@@ -130,35 +147,35 @@ body {
 }
 
 .btn-primary {
-    --btn-border-color: #EA824B;
-    --btn-color: #F5F5F5;
-    --btn-bg: #EA824B;
+    --btn-border-color: #ff0000;
+    --btn-color: #000;
+    --btn-bg: #ff0000;
+    --btn-hover-border-color: #cc0000;
+    --btn-hover-bg: #cc0000;
 }
 
 .btn-secondary {
-    --btn-border-color: #A1A9BB;
-    --btn-color: #F5F5F5;
-    --btn-bg: #A1A9BB;
+    --btn-border-color: #444;
+    --btn-color: #dfdfdf;
+    --btn-bg: #444;
+    --btn-hover-border-color: #333;
+    --btn-hover-bg: #333;
 }
 
-.btn-outline-light {
-    --btn-border-color: #ccc;
-    --btn-color: #333;
+.btn-outline {
+    --btn-border-color: #444;
+    --btn-color: #dfdfdf;
     --btn-bg: transparent;
-}
-
-.btn-danger {
-    --btn-border-color: #db2828;
-    --btn-color: #fff;
-    --btn-bg: #db2828;
+    --btn-hover-color: #000;
+    --btn-hover-bg: #dfdfdf;
 }
 
 .btn-outline-danger {
-    --btn-border-color: #db2828;
-    --btn-color: #db2828;
+    --btn-border-color: #2d2b3c;
+    --btn-color: #dfdfdf;
     --btn-bg: transparent;
     --btn-hover-color: #fff;
-    --btn-hover-bg: #db2828;
+    --btn-hover-bg: #2d2b3c;
 }
 
 /* Modals */
@@ -166,13 +183,16 @@ body {
 .modal {
     /* Variables */
     --modal-max-width: 500px;
+    --modal-color: #dfdfdf;
+    --modal-bg: #000;
 
     /* Default Styles */
     width: auto;
     max-width: var(--modal-max-width);
-    border: 1px solid #ccc;
+    border: 1px solid #000;
     border-radius: 0.25rem;
-    background-color: var(--body-bg);
+    color: var(--modal-color);
+    background-color: var(--modal-bg);
 }
 
 .modal-header,
@@ -182,11 +202,11 @@ body {
 }
 
 .modal-header {
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #444;
 }
 
 .modal-footer {
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #444;
 }
 
 .modal-title {
@@ -228,7 +248,7 @@ body {
     padding: var(--form-control-padding-y) var(--form-control-padding-x);
     font-size: var(--form-control-font-size);
     line-height: normal;
-    border: 1px solid #ccc;
+    border: 1px solid #444;
     border-radius: 0.25rem;
     color: var(--body-color);
     background-color: var(--body-bg);
@@ -248,7 +268,7 @@ body {
 }
 
 .form-control-plaintext:focus {
-    border-color: #ccc;
+    border-color: #444;
     padding: 0.375rem 0.75rem;
 }
 
@@ -267,17 +287,19 @@ body {
     margin-bottom: 0.25rem;
     font-size: 0.875rem;
     cursor: pointer;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
 .project-item.active {
-    border-color: #EA824B;
-    color: #F5F5F5;
-    background-color: #EA824B;
+    font-weight: 600;
+    border-color: #ff0000;
+    color: #000;
+    background-color: #ff0000;
 }
 
 .project-item:not(.active):hover {
-    border-color: #ccc;
-    background-color: #eee;
+    border-color: #242424;
+    background-color: #242424;
 }
 
 /* Todos */
@@ -293,6 +315,7 @@ body {
     color: var(--body-color);
     background-color: var(--body-bg);
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .todo-item > :not(input[type='checkbox']) {
@@ -300,7 +323,7 @@ body {
 }
 
 .todo-item:hover {
-    border-color: #ccc;
+    background-color: #000;
 }
 
 .todo-title {

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Do it.</title>
 
     <link rel="preconnect" href="https://rsms.me/">
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
@@ -145,15 +145,29 @@
     <!-- Main Content -->
     <div class="grid-container">
         <div class="sidebar">
-            <h3 class="h3 mb-2">Projects</h3>
-            <ul id="project-list"></ul>
-            <button id="add-project-button" type="button" class="btn btn-block btn-sm btn-outline-light">Add Project</button>
+            <div class="sidebar-brand">
+                <img id="logo" alt="logo" class="logo">
+                <h1 class="h2">Do it.</h1>
+            </div>
+
+            <div class="sidebar-projects">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="h3">My Projects</h3>
+                    <button type="button" class="btn btn-sm btn-outline add-project-button">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                </div>
+
+                <ul id="project-list"></ul>
+
+                <button type="button" class="btn btn-block btn-sm btn-outline add-project-button">Add Project</button>
+            </div>
         </div>
 
         <div class="main-content">
             <input id="project-title" type="text" class="form-control-plaintext h1 mb-2" placeholder="Project Title">
             <ul id="todo-list"></ul>
-            <button id="add-todo-button" type="button" class="btn btn-block btn-sm btn-outline-light">Add Todo</button>
+            <button id="add-todo-button" type="button" class="btn btn-block btn-sm btn-outline">Add Todo</button>
         </div>
     </div>
 </body>

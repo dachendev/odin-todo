@@ -41,6 +41,8 @@ export function loadProjects() {
     if (projects) {
         projects = JSON.parse(projects).map(project => {
             project.todos = JSON.parse(project.todos).map(todo => {
+                todo.dueDate = new Date(todo.dueDate);
+
                 return createTodo(todo);
             });
 
