@@ -1,8 +1,15 @@
 import { nanoid } from 'nanoid';
 
-export function createProjectManager(options = {}) {
-    var projects = options.projects || [];
-    var activeProjectId = options.activeProjectId || null;
+export function createProjectManager({
+    projects = [],
+    activeProjectId,
+    storeProjects,
+} = {}) {
+    function store() {
+        if (storeProjects) {
+            storeProjects(this);
+        }
+    }
 
     function addProject(project) {
         projects.push(project);
@@ -10,7 +17,7 @@ export function createProjectManager(options = {}) {
 
     function addManyProjects(projects) {      
         projects.forEach(project => {
-            addProject(project);
+            projects.push(project);
         });
     }
 
@@ -35,6 +42,7 @@ export function createProjectManager(options = {}) {
     }
 
     return {
+        store,
         addProject,
         addManyProjects,
         getProjectById,
@@ -50,6 +58,7 @@ export function createProject({
     title = 'New Project',
     todos = [],
     created = new Date(),
+    updated = new Date(),
 }) {
     function addTodo(todo) {
         todo.setProject(id);
@@ -78,6 +87,7 @@ export function createProject({
         id,
         title,
         created,
+        updated,
         addTodo,
         addManyTodos,
         getTodos,

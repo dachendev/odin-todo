@@ -24,6 +24,9 @@ export function setupAddProjectModal(projectManager) {
         var title = formData.get('title');
         projectManager.addProject(createProject({ title }));
 
+        // Persist projects to local storage
+        projectManager.store();
+
         // Re-render project list
         renderProjectList(projectManager);
         renderProjectSelects(projectManager);
@@ -71,6 +74,9 @@ export function setupAddTodoModal(projectManager) {
         
         var todo = createTodo({ title, priority, dueDate, notes, project });
         projectManager.getProjectById(project).addTodo(todo);
+
+        // Persist projects to local storage
+        projectManager.store();
 
         // Re-render content if project is active
         if (project === projectManager.getActiveProjectId()) {
@@ -154,6 +160,9 @@ export function setupEditTodoModal(projectManager) {
             todo.setProject(newProject.id);
         }
 
+        // Persist projects to local storage
+        projectManager.store();
+
         // Re-render content
         renderContent(projectManager);
 
@@ -174,6 +183,9 @@ export function setupEditTodoModal(projectManager) {
 
         // Remove from project
         projectManager.getActiveProject().removeTodoById(todo.id);
+
+        // Persist projects to local storage
+        projectManager.store();
 
         // Re-render content
         renderContent(projectManager);
@@ -363,12 +375,15 @@ export function createTodoItem(todo) {
     return li;
 }
 
-export function setupProjectTitle(projectManager) {
+export function onProjectTitleChange(projectManager) {
     var project = projectManager.getActiveProject();
     var projectTitle = document.getElementById('project-title');
 
     projectTitle.addEventListener('change', (e) => {
         project.title = e.currentTarget.value;
+
+        // Persist projects to local storage
+        projectManager.store();
 
         // Re-render project list
         renderProjectList(projectManager);

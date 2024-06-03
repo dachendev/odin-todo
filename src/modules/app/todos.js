@@ -9,6 +9,7 @@ export function createTodo({
     notes = '',
     project = null,
     created = new Date(),
+    updated = new Date(),
 }) {
     function complete() {
         completed = true;
@@ -31,6 +32,7 @@ export function createTodo({
         notes,
         project,
         created,
+        updated,
         complete,
         uncomplete,
         setProject

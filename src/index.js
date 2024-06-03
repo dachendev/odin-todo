@@ -5,46 +5,47 @@ import '@fortawesome/fontawesome-free/js/solid.js';
 import { createProject, createProjectManager } from './modules/app/projects.js';
 import { createTodo } from './modules/app/todos.js';
 import * as domUtils from './modules/domUtils.js';
+import { loadProjects, storeProjects } from './modules/storageUtils.js';
 import './style.css';
 
 function domLoaded() {
-    // Setup projects
-    var projectManager = createProjectManager();
+    // Load projects from local storage
+    var projects = loadProjects();
 
-    // Add default project
-    var defaultProject = createProject({ title: '✏️ Todos' });
-    projectManager.addProject(defaultProject);
-    projectManager.setActiveProject(defaultProject.id);
+    // Create project manager
+    var projectManager;
 
-    // Add many projects
-    projectManager.addManyProjects([
-        createProject({ title: '🧹 Chores' }),
-        createProject({ title: '💐 Mom\'s Birthday' }),
-        createProject({ title: '💼 Work' }),
-    ]);
+    if (projects) {
+        projectManager = createProjectManager({ projects, activeProjectId: projects[0].id, storeProjects });
+    } else {
+        projectManager = createProjectManager({ storeProjects });
 
-    // Add many todos
-    defaultProject.addManyTodos([
-        createTodo({ title: 'Todo 1', dueDate: new Date('2022-01-01') }),
-        createTodo({ title: 'Todo 2', dueDate: new Date(), priority: 'low' }),
-        createTodo({ title: 'Todo 2', dueDate: new Date('2024-06-02'), priority: 'low' }),
-        createTodo({ title: 'Todo 2', dueDate: new Date('2024-06-05'), priority: 'medium' }),
-        createTodo({ title: 'Todo 2', dueDate: new Date('2024-12-05'), priority: 'medium' }),
-        createTodo({ title: 'Todo 4', dueDate: new Date('2028-01-01'), priority: 'high', notes: 'Some notes' }),
-    ]);
+        // Create default project
+        var defaultProject = createProject({ title: '✏️ Todos' });
+        projectManager.addProject(defaultProject);
+        projectManager.setActiveProject(defaultProject.id);
 
+        // Add todos
+        defaultProject.addManyTodos([
+            createTodo({ title: 'Todo 1' }),
+            createTodo({ title: 'Todo 2' }),
+            createTodo({ title: 'Todo 3' }),
+        ]);
+    }
+
+    /* Setup DOM */
     // Setup modals
     domUtils.setupAddProjectModal(projectManager);
     domUtils.setupAddTodoModal(projectManager);
     domUtils.setupEditTodoModal(projectManager);
     domUtils.setupDismissModal();
 
-    // Setup projects
+    // Setup events
+    domUtils.onProjectTitleChange(projectManager);
+
+    // Render
     domUtils.renderProjectList(projectManager);
     domUtils.renderProjectSelects(projectManager);
-
-    // Setup content
-    domUtils.setupProjectTitle(projectManager);
     domUtils.renderContent(projectManager);
 }
 
