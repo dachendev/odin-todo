@@ -147,35 +147,34 @@ body {
 }
 
 .btn-primary {
-    --btn-border-color: #ff0000;
-    --btn-color: #000;
-    --btn-bg: #ff0000;
-    --btn-hover-border-color: #cc0000;
-    --btn-hover-bg: #cc0000;
+    --btn-border-color: #2d2b3c;
+    --btn-color: #dfdfdf;
+    --btn-bg: #2d2b3c;
+    --btn-hover-bg: #3a3855;
+    --btn-hover-border-color: #3a3855;
+    --btn-hover-color: #dfdfdf;
 }
 
 .btn-secondary {
     --btn-border-color: #444;
     --btn-color: #dfdfdf;
     --btn-bg: #444;
-    --btn-hover-border-color: #333;
-    --btn-hover-bg: #333;
+    --btn-hover-border-color: #555;
+    --btn-hover-bg: #555;
 }
 
 .btn-outline {
     --btn-border-color: #444;
     --btn-color: #dfdfdf;
     --btn-bg: transparent;
-    --btn-hover-color: #000;
-    --btn-hover-bg: #dfdfdf;
+    --btn-hover-bg: #444;
 }
 
-.btn-outline-danger {
-    --btn-border-color: #2d2b3c;
-    --btn-color: #dfdfdf;
-    --btn-bg: transparent;
-    --btn-hover-color: #fff;
-    --btn-hover-bg: #2d2b3c;
+.btn-text-danger {
+    --btn-color: #ff0000;
+    --btn-hover-border-color: #cc0000;
+    --btn-hover-color: #dfdfdf;
+    --btn-hover-bg: #cc0000;
 }
 
 /* Modals */
@@ -292,9 +291,9 @@ body {
 
 .project-item.active {
     font-weight: 600;
-    border-color: #ff0000;
-    color: #000;
-    background-color: #ff0000;
+    border-color: #3a3855;
+    color: #dfdfdf;
+    background-color: #3a3855;
 }
 
 .project-item:not(.active):hover {
