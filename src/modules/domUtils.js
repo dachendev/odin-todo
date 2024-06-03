@@ -91,6 +91,7 @@ export function setupEditTodoModal(projectManager) {
     var todoList = document.getElementById('todo-list');
     var editTodoModal = document.getElementById('edit-todo-modal');
     var editTodoForm = document.querySelector('#edit-todo-modal form');
+    var deleteTodoButton = document.getElementById('delete-todo-button');
 
     todoList.addEventListener('click', (e) => {
         // Delegate event to todo item
@@ -163,6 +164,22 @@ export function setupEditTodoModal(projectManager) {
     editTodoModal.addEventListener('close', () => {
         // Reset form
         editTodoForm.reset();
+    });
+
+    // Delete todo
+    deleteTodoButton.addEventListener('click', () => {
+        // Get todo
+        var todoId = editTodoForm.querySelector('[name="id"]').value;
+        var todo = projectManager.getActiveProject().getTodoById(todoId);
+
+        // Remove from project
+        projectManager.getActiveProject().removeTodoById(todo.id);
+
+        // Re-render content
+        renderContent(projectManager);
+
+        // Close modal
+        editTodoModal.close();
     });
 }
 
@@ -346,15 +363,25 @@ export function createTodoItem(todo) {
     return li;
 }
 
-export function renderContent(projectManager) {
+export function setupProjectTitle(projectManager) {
+    var project = projectManager.getActiveProject();
     var projectTitle = document.getElementById('project-title');
-    var todoList = document.getElementById('todo-list');
 
+    projectTitle.addEventListener('change', (e) => {
+        project.title = e.currentTarget.value;
+
+        // Re-render project list
+        renderProjectList(projectManager);
+    });
+}
+
+export function renderContent(projectManager) {
+    var todoList = document.getElementById('todo-list');
     var project = projectManager.getActiveProject();
     var todos = project.getTodos();
 
     // Set project title
-    projectTitle.textContent = project.title;
+    document.getElementById('project-title').value = project.title;
 
     // Clear list
     todoList.innerHTML = '';

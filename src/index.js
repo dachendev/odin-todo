@@ -12,15 +12,15 @@ function domLoaded() {
     var projectManager = createProjectManager();
 
     // Add default project
-    var defaultProject = createProject({ title: 'Default Project' });
+    var defaultProject = createProject({ title: '✏️ Todos' });
     projectManager.addProject(defaultProject);
     projectManager.setActiveProject(defaultProject.id);
 
     // Add many projects
     projectManager.addManyProjects([
-        createProject({ title: 'Project 1' }),
-        createProject({ title: 'Project 2' }),
-        createProject({ title: 'Project 3' }),
+        createProject({ title: '🧹 Chores' }),
+        createProject({ title: '💐 Mom\'s Birthday' }),
+        createProject({ title: '💼 Work' }),
     ]);
 
     // Add many todos
@@ -43,7 +43,8 @@ function domLoaded() {
     domUtils.renderProjectList(projectManager);
     domUtils.renderProjectSelects(projectManager);
 
-    // Render content
+    // Setup content
+    domUtils.setupProjectTitle(projectManager);
     domUtils.renderContent(projectManager);
 }
 

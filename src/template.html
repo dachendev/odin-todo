@@ -89,7 +89,7 @@
                 <input type="hidden" name="id">
 
                 <div class="form-group">
-                    <input type="text" class="form-control h3" name="title" placeholder="Title">
+                    <input type="text" class="form-control form-control-plaintext h3" name="title" placeholder="Title">
                 </div>
 
                 <div class="form-group">
@@ -122,9 +122,21 @@
                     <textarea name="notes" class="form-control form-control-sm" rows="5" placeholder="..."></textarea>
                 </div>
 
-                <div class="flex justify-end items-center gap-2">
-                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-sm btn-primary">Save Changes</button>    
+                <div class="flex justify-between">
+                    <div class="flex items-center gap-2">
+                        <button id="delete-todo-button" type="button" class="btn btn-sm btn-outline-danger">
+                            <i class="fa-regular fa-trash-can"></i>
+                            Delete
+                        </button>
+                    </div>
+
+                    <div class="flex justify-end items-center gap-2">
+                        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-sm btn-primary">
+                            <i class="fa-solid fa-floppy-disk"></i>
+                            Save Changes
+                        </button>    
+                    </div>
                 </div>
             </form>
         </div>
@@ -139,7 +151,7 @@
         </div>
 
         <div class="main-content">
-            <h1 id="project-title" class="h1 mb-2">Default Project</h1>
+            <input id="project-title" type="text" class="form-control-plaintext h1 mb-2" placeholder="Project Title">
             <ul id="todo-list"></ul>
             <button id="add-todo-button" type="button" class="btn btn-block btn-sm btn-outline-light">Add Todo</button>
         </div>
