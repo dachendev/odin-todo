@@ -19,13 +19,13 @@
         <div class="modal-body">
             <form method="dialog">
                 <div class="form-group">
-                    <label class="form-label">Title</label>
-                    <input type="text" name="title" class="form-control">
+                    <label class="form-label form-label-sm">Title</label>
+                    <input type="text" name="title" class="form-control form-control-sm" placeholder="New project">
                 </div>
 
                 <div class="flex justify-end items-center gap-2">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Add Project</button>
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-sm btn-primary">Add Project</button>
                 </div>
             </form>
         </div>
@@ -39,40 +39,92 @@
         <div class="modal-body">
             <form method="dialog">
                 <div class="form-group">
-                    <label class="form-label">Title</label>
-                    <input type="text" name="title" class="form-control">
+                    <label class="form-label form-label-sm">Title</label>
+                    <input type="text" name="title" class="form-control form-control-sm" placeholder="New todo">
                 </div>
 
-                <div class="columns-2">
-                    <div class="form-group">
-                        <label class="form-label">Priority</label>
-                        <select name="priority" class="form-control" style="height: 38px;">
+                <div class="form-group">
+                    <div class="flex items-center gap-2">
+                        <label class="form-label form-label-sm mb-0" style="width: 120px;">Priority</label>
+                        <select name="priority" class="form-control form-control-sm">
                             <option value="unset" selected>None (unset)</option>
                             <option value="low">Low</option>
                             <option value="medium">Medium</option>
                             <option value="high">High</option>
                         </select>
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <label class="form-label">Due Date</label>
-                        <input type="date" name="dueDate" class="form-control" style="height: 38px;">
+                <div class="form-group">
+                    <div class="flex items-center gap-2">
+                        <label class="form-label form-label-sm mb-0" style="width: 120px;">Due Date</label>
+                        <input type="date" name="dueDate" class="form-control form-control-sm">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Notes</label>
-                    <textarea name="notes" class="form-control"></textarea>
+                    <div class="flex items-center gap-2">
+                        <label class="form-label form-label-sm mb-0" style="width: 120px;">Project</label>
+                        <select name="project" class="form-control form-control-sm"></select>
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Project</label>
-                    <select name="project" class="form-control"></select>
+                    <label class="form-label form-label-sm">Notes</label>
+                    <textarea name="notes" class="form-control form-control-sm" rows="5" placeholder="..."></textarea>
                 </div>
 
                 <div class="flex justify-end items-center gap-2">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Add Todo</button>
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-sm btn-primary">Add Todo</button>
+                </div>
+            </form>
+        </div>
+    </dialog>
+
+    <!-- Edit Todo Modal -->
+    <dialog id="edit-todo-modal" class="modal">
+        <div class="modal-body">
+            <form method="dialog">
+                <input type="hidden" name="id">
+
+                <div class="form-group">
+                    <input type="text" class="form-control h3" name="title" placeholder="Title">
+                </div>
+
+                <div class="form-group">
+                    <div class="flex items-center gap-2">
+                        <label class="form-label form-label-sm mb-0" style="width: 120px;">Priority</label>
+                        <select name="priority" class="form-control form-control-sm">
+                            <option value="unset" selected>None (unset)</option>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="flex items-center gap-2">
+                        <label class="form-label form-label-sm mb-0" style="width: 120px;">Due Date</label>
+                        <input type="date" name="dueDate" class="form-control form-control-sm">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="flex items-center gap-2">
+                        <label class="form-label form-label-sm mb-0" style="width: 120px;">Project</label>
+                        <select name="project" class="form-control form-control-sm"></select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label form-label-sm">Notes</label>
+                    <textarea name="notes" class="form-control form-control-sm" rows="5" placeholder="..."></textarea>
+                </div>
+
+                <div class="flex justify-end items-center gap-2">
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-sm btn-primary">Save Changes</button>    
                 </div>
             </form>
         </div>

@@ -19,7 +19,7 @@ export function createTodo({
     }
 
     function setProject(projectId) {
-        project = projectId;
+        this.project = projectId;
     }
 
     return {

@@ -34,7 +34,7 @@
 
 body {
     --body-color: #000;
-    --body-bg: #F5F5F5;
+    --body-bg: #fff;
     color: var(--body-color);
     background-color: var(--body-bg);
 }
@@ -81,7 +81,7 @@ body {
 .main-content {
     grid-area: main-content;
     padding: 2rem 1.5rem;
-    background-color: #fff;
+    background-color: var(--body-bg);
 }
 
 /* Buttons */
@@ -192,6 +192,7 @@ body {
     margin-bottom: 0.5rem;
     font-size: var(--form-label-font-size);
     font-weight: 600;
+    white-space: nowrap;
 }
 
 .form-label-sm {
@@ -209,6 +210,7 @@ body {
     width: 100%;
     padding: var(--form-control-padding-y) var(--form-control-padding-x);
     font-size: var(--form-control-font-size);
+    line-height: normal;
     border: 1px solid #ccc;
     border-radius: 0.25rem;
     color: var(--body-color);
@@ -229,8 +231,6 @@ body {
     padding: 0.25rem 0.5rem;
     margin-bottom: 0.25rem;
     font-size: 0.875rem;
-    color: var(--sidebar-color);
-    background-color: var(--sidebar-bg);
     cursor: pointer;
 }
 
@@ -253,9 +253,10 @@ body {
     gap: 0.5rem;
     border: 1px solid transparent;
     border-radius: 0.25rem;
-    margin-bottom: 0.25rem;
     padding: 0.375rem 0.75rem;
+    margin-bottom: 0.25rem;
     color: var(--body-color);
+    background-color: var(--body-bg);
     cursor: pointer;
 }
 
@@ -280,22 +281,6 @@ body {
     margin-left: auto;
 }
 
-.todo-due-date {
-    border-radius: 0.25rem;
-    padding: 0.25rem 0.5rem;
-    font-size: 0.75rem;
-    font-weight: 700;
-    line-height: 1;
-    color: #333;
-    background-color: #eee;
-}
-
-/* .todo-due-date.due-today {} */
-
-/* .todo-due-date.due-overdue {}
-
-.todo-due-date.due-soon {} */
-
 .todo-priority {
     width: 0.5rem;
     height: 0.5rem;
@@ -315,4 +300,18 @@ body {
 
 .todo-priority.priority-high {
     background-color: #db2828;
+}
+
+.todo-due-date {
+    border-radius: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #333;
+    background-color: #eee;
+}
+
+.todo-notes-indicator {
+    color: #ccc;
 }

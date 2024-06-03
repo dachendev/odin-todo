@@ -66,6 +66,14 @@ export function createProject({
         return todos;
     }
 
+    function getTodoById(id) {
+        return todos.find(todo => todo.id === id);
+    }
+
+    function removeTodoById(id) {
+        todos = todos.filter(todo => todo.id !== id);
+    }
+
     return {
         id,
         title,
@@ -73,5 +81,7 @@ export function createProject({
         addTodo,
         addManyTodos,
         getTodos,
+        getTodoById,
+        removeTodoById,
     };
 }

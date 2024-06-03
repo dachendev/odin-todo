@@ -30,16 +30,18 @@ function domLoaded() {
         createTodo({ title: 'Todo 2', dueDate: new Date('2024-06-02'), priority: 'low' }),
         createTodo({ title: 'Todo 2', dueDate: new Date('2024-06-05'), priority: 'medium' }),
         createTodo({ title: 'Todo 2', dueDate: new Date('2024-12-05'), priority: 'medium' }),
-        createTodo({ title: 'Todo 4', dueDate: new Date('2028-01-01'), priority: 'high' }),
+        createTodo({ title: 'Todo 4', dueDate: new Date('2028-01-01'), priority: 'high', notes: 'Some notes' }),
     ]);
 
     // Setup modals
     domUtils.setupAddProjectModal(projectManager);
     domUtils.setupAddTodoModal(projectManager);
+    domUtils.setupEditTodoModal(projectManager);
     domUtils.setupDismissModal();
 
-    // Render project list
+    // Setup projects
     domUtils.renderProjectList(projectManager);
+    domUtils.renderProjectSelects(projectManager);
 
     // Render content
     domUtils.renderContent(projectManager);

@@ -26,7 +26,7 @@ export function setupAddProjectModal(projectManager) {
 
         // Re-render project list
         renderProjectList(projectManager);
-        renderProjectSelect(projectManager);
+        renderProjectSelects(projectManager);
 
         // Close modal
         addProjectModal.close();
@@ -42,9 +42,6 @@ export function setupAddTodoModal(projectManager) {
     var addTodoButton = document.getElementById('add-todo-button');
     var addTodoModal = document.getElementById('add-todo-modal');
     var addTodoForm = document.querySelector('#add-todo-modal form');
-
-    // Add project select
-    renderProjectSelect(projectManager);
 
     addTodoButton.addEventListener('click', () => {
         // Select active project
@@ -90,6 +87,85 @@ export function setupAddTodoModal(projectManager) {
     });
 }
 
+export function setupEditTodoModal(projectManager) {
+    var todoList = document.getElementById('todo-list');
+    var editTodoModal = document.getElementById('edit-todo-modal');
+    var editTodoForm = document.querySelector('#edit-todo-modal form');
+
+    todoList.addEventListener('click', (e) => {
+        // Delegate event to todo item
+        if (e.target.classList.contains('todo-item')) {
+            // Get todo
+            var todoId = e.target.dataset.id;
+            var todo = projectManager.getActiveProject().getTodoById(todoId);
+
+            // Set form data
+            editTodoForm.querySelector('[name="id"]').value = todo.id;
+            editTodoForm.querySelector('[name="title"]').value = todo.title;
+            editTodoForm.querySelector('[name="priority"]').value = todo.priority;
+            editTodoForm.querySelector('[name="dueDate"]').value = todo.dueDate;
+            editTodoForm.querySelector('[name="notes"]').value = todo.notes;
+            editTodoForm.querySelector('[name="project"]').value = todo.project;
+
+            if (todo.priority === null) {
+                editTodoForm.querySelector('[name="priority"]').value = 'unset';
+            }
+
+            // Show modal
+            editTodoModal.showModal();
+        }
+    });
+
+    editTodoForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        // Get form data
+        var formData = new FormData(e.currentTarget);
+
+        // Get todo
+        var todoId = formData.get('id');
+        var todo = projectManager.getActiveProject().getTodoById(todoId);
+
+        // Update todo
+        var title = formData.get('title');
+        var priority = formData.get('priority');
+        var dueDate = formData.get('dueDate');
+        var notes = formData.get('notes');
+        var project = formData.get('project'); // Project ID
+
+        if (priority === 'unset') {
+            priority = null;
+        }
+
+        todo.title = title;
+        todo.priority = priority;
+        todo.dueDate = dueDate;
+        todo.notes = notes;
+        
+        if (project !== todo.project) {
+            // Remove from old project
+            var oldProject = projectManager.getProjectById(todo.project);
+            oldProject.removeTodoById(todo.id);
+
+            // Add to new project
+            var newProject = projectManager.getProjectById(project);
+            newProject.addTodo(todo);
+            todo.setProject(newProject.id);
+        }
+
+        // Re-render content
+        renderContent(projectManager);
+
+        // Close modal
+        editTodoModal.close();
+    });
+
+    editTodoModal.addEventListener('close', () => {
+        // Reset form
+        editTodoForm.reset();
+    });
+}
+
 export function setupDismissModal() {
     document.querySelectorAll('[data-dismiss="modal"]').forEach(el => {
         el.addEventListener('click', () => {
@@ -101,22 +177,16 @@ export function setupDismissModal() {
     });
 }
 
-export function renderProjectSelect(projectManager) {
-    var addTodoForm = document.querySelector('#add-todo-modal form');
-    var projectSelect = addTodoForm.querySelector('[name="project"]');
-
-    // Clear options
-    projectSelect.innerHTML = '';
+export function renderProjectSelects(projectManager) {
+    var projectSelects = document.querySelectorAll('select[name="project"]');
+    var projectOptions = '';
 
     projectManager.getProjects().forEach(project => {
-        var option = document.createElement('option');
-        
-        // Add option attributes
-        option.value = project.id;
-        option.textContent = project.title;
+        projectOptions += `<option value="${project.id}">${project.title}</option>`;
+    });
 
-        // Add option
-        projectSelect.appendChild(option);
+    projectSelects.forEach(select => {
+        select.innerHTML = projectOptions;
     });
 }
 
@@ -222,16 +292,12 @@ export function createTodoItem(todo) {
         var dueIn = differenceInDays(todo.dueDate, now);
 
         if (dueIn === 0) {
-            dueDate.classList.add('due-today');
             dueDate.textContent = 'Today';
         } else if (compareAsc(todo.dueDate, now) < 0) {
-            dueDate.classList.add('due-overdue');
             dueDate.textContent = 'Overdue';
         } else if (dueIn === 1) {
-            dueDate.classList.add('due-tomorrow');
             dueDate.textContent = 'Tomorrow';
         } else if (dueIn <= 7) {
-            dueDate.classList.add('due-soon');
             dueDate.textContent = `${dueIn} days`;
         } else if (isThisYear(todo.dueDate)) {
             dueDate.textContent = formatDate(todo.dueDate, 'MMM d');
@@ -248,7 +314,21 @@ export function createTodoItem(todo) {
     title.textContent = todo.title;
     li.appendChild(title);
 
-    /* END Add content */
+    // Notes
+    if (todo.notes) {
+        var notesIndicator = document.createElement('span');
+        notesIndicator.classList.add('todo-notes-indicator');
+
+        // Add icon
+        var icon = document.createElement('i');
+        icon.classList.add('fa-regular');
+        icon.classList.add('fa-note-sticky');
+        notesIndicator.appendChild(icon);
+
+        li.appendChild(notesIndicator);
+    }
+
+    /* END Content */
     
     // Add event listeners
     checkbox.addEventListener('change', () => {
@@ -270,7 +350,7 @@ export function renderContent(projectManager) {
     var projectTitle = document.getElementById('project-title');
     var todoList = document.getElementById('todo-list');
 
-    var project =  projectManager.getActiveProject();
+    var project = projectManager.getActiveProject();
     var todos = project.getTodos();
 
     // Set project title
