@@ -12,11 +12,11 @@ export function createTodo({
     updated = new Date(),
 }) {
     function complete() {
-        completed = true;
+        this.completed = true;
     }
 
     function uncomplete() {
-        completed = false;
+        this.completed = false;
     }
 
     function setProject(projectId) {

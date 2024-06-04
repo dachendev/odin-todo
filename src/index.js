@@ -28,10 +28,13 @@ function domLoaded() {
         projectManager.addProject(defaultProject);
         projectManager.setActiveProject(defaultProject.id);
 
+        var now = new Date();
+        now.setHours(0, 0, 0, 0);
+
         // Add todos
         defaultProject.addManyTodos([
             createTodo({ title: 'Join the Dark Side', priority: 'high', dueDate: new Date('2022-01-01') }),
-            createTodo({ title: 'Execute Order 66', priority: 'high', dueDate: new Date().setHours(0, 0, 0, 0) }),
+            createTodo({ title: 'Execute Order 66', priority: 'high', dueDate: now }),
             createTodo({ title: 'Kill the Jedi', priority: 'high' }),
             createTodo({ title: 'Say hi to Darth Jar Jar', priority: 'low' }),
         ]);
@@ -50,6 +53,7 @@ function domLoaded() {
 
     // Setup events
     domUtils.onProjectTitleChange(projectManager);
+    domUtils.onCheckboxChange(projectManager);
 
     // Render
     domUtils.renderProjectList(projectManager);

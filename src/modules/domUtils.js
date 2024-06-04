@@ -380,21 +380,33 @@ export function createTodoItem(todo) {
     }
 
     /* END Content */
-    
-    // Add event listeners
-    checkbox.addEventListener('change', () => {
-        // Toggle completed
-        if (checkbox.checked) {
-            todo.complete();
-            li.classList.add('completed');
-        } else {
-            todo.uncomplete();
-            li.classList.remove('completed');
-        }
-    });
-
 
     return li;
+}
+
+export function onCheckboxChange(projectManager) {
+    var todoList = document.getElementById('todo-list');
+
+    todoList.addEventListener('change', (e) => {
+        // Delegate event to todo item
+        if (e.target.classList.contains('todo-completed')) {
+            var checkbox = e.target;
+            var todoItem = checkbox.parentElement;
+            var todo = projectManager.getActiveProject().getTodoById(todoItem.dataset.id);
+            
+            // Toggle completed
+            if (checkbox.checked) {
+                todo.complete();
+                todoItem.classList.add('completed');
+            } else {
+                todo.uncomplete();
+                todoItem.classList.remove('completed');
+            }
+
+            // Persist todos to local storage
+            projectManager.store();
+        }
+    });
 }
 
 export function onProjectTitleChange(projectManager) {
