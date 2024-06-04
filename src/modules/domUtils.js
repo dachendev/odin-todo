@@ -74,10 +74,14 @@ export function setupAddTodoModal(projectManager) {
             priority = null;
         }
 
+        console.log('Due date before:', dueDate);
+
         if (dueDate) {
             dueDate = new Date(dueDate.replace(/-/g, '/'));
+        } else {
+            dueDate = null;
         }
-        
+
         var todo = createTodo({ title, priority, dueDate, notes, project });
         projectManager.getProjectById(project).addTodo(todo);
 
@@ -111,6 +115,7 @@ export function setupEditTodoModal(projectManager) {
             // Get todo
             var todoId = e.target.dataset.id;
             var todo = projectManager.getActiveProject().getTodoById(todoId);
+            console.log('Todo:', todo);
 
             // Set form data
             editTodoForm.querySelector('[name="id"]').value = todo.id;
@@ -152,6 +157,8 @@ export function setupEditTodoModal(projectManager) {
 
         if (dueDate) {
             dueDate = new Date(dueDate.replace(/-/g, '/'));
+        } else {
+            dueDate = null;
         }
 
         todo.title = title;
